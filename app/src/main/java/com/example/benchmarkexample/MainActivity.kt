@@ -13,7 +13,11 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
@@ -24,6 +28,7 @@ import androidx.navigation.navArgument
 import com.example.benchmarkexample.ui.theme.BenchmarkExampleTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalComposeUiApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -36,11 +41,14 @@ class MainActivity : ComponentActivity() {
                 NavHost(
                     navController = navController,
                     startDestination = "list",
+                    modifier = Modifier.semantics {
+                        testTagsAsResourceId = true
+                    }
                 ) {
                     composable("list") {
                         LazyColumn(
                             modifier = Modifier
-                                .fillMaxSize().padding(16.dp)
+                                .fillMaxSize().padding(16.dp).testTag("item_list")
                         ) {
                             item {
                                 Button(onClick = { counter++ }) {
