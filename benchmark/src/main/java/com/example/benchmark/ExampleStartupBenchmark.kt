@@ -31,7 +31,7 @@ class ExampleStartupBenchmark {
         packageName = "com.example.benchmarkexample",
         metrics = listOf(StartupTimingMetric()),
         iterations = 5,
-        startupMode = StartupMode.COLD
+        startupMode = StartupMode.HOT
     ) {
         pressHome()
         startActivityAndWait()
